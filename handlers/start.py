@@ -5,9 +5,7 @@ from aiogram.dispatcher import FSMContext
 # kode import
 from loader import dp, bot
 from utils import texts, buttons
-
-
-ADMIN = 5765144405
+from utils.env import ADMIN
 
 
 @dp.message_handler(commands=['start'], state='*')

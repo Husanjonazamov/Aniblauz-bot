@@ -3,11 +3,11 @@ from aiogram.dispatcher import FSMContext
 
 # Kode import
 from loader import dp, bot
-from utils.env import BOT_URL
+from utils.env import BOT_URL, ADMIN
 from utils import texts
 import json
 
-ADMIN = 5765144405
+
 VIDEO_LINKS_FILE = 'video_links.json'
 
 def load_links():
