@@ -1,13 +1,13 @@
 from aiogram.types import Message
 from aiogram.dispatcher import FSMContext
 
-# kode import
+# Kode import
 from loader import dp, bot
 from utils.env import BOT_URL
 from utils import texts
 import json
 
-ADMIN = 6415392394
+ADMIN = 5765144405
 VIDEO_LINKS_FILE = 'video_links.json'
 
 def load_links():
@@ -40,7 +40,8 @@ async def start_handler(message: Message, state: FSMContext):
             content_type = 'photo'
         
         if file_id and content_type:
-            unique_id = f"{content_type}_{len(video_links) + 1}"
+            count = sum(1 for key in video_links if key.startswith(content_type))
+            unique_id = f"{content_type}_{count + 1}"
             video_links[unique_id] = file_id
             save_links(video_links)
 
@@ -48,4 +49,3 @@ async def start_handler(message: Message, state: FSMContext):
             await message.answer(video_url)
     else:
         await message.answer(texts.NOT_ADMIN)
-

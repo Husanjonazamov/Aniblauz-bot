@@ -5,7 +5,7 @@ from aiogram.dispatcher import FSMContext
 # kode import
 from loader import dp, bot
 from handlers.generate import video_links
-
+from utils import texts
 
 
 
@@ -18,13 +18,25 @@ async def handle_link(message: Message, state: FSMContext):
             file_id = video_links[unique_id]
             content_type = unique_id.split('_')[0]
             
+            method = None
+            data = {
+                'chat_id': message.chat.id,
+                'protect_content': True
+            }
+            
             if content_type == 'video':
-                await bot.send_video(chat_id=message.chat.id, video=file_id)
+                method = 'sendVideo'
+                data['video'] = file_id
             elif content_type == 'document':
-                await bot.send_document(chat_id=message.chat.id, document=file_id)
+                method = 'sendDocument'
+                data['document'] = file_id
             elif content_type == 'photo':
-                await bot.send_photo(chat_id=message.chat.id, photo=file_id)
+                method = 'sendPhoto'
+                data['photo'] = file_id
+
+            if method:
+                await bot.request(method, data)
         else:
-            await message.reply("Xato havola.")
+            await message.reply(texts.NOT_URL)
     else:
-        await message.reply("Noto'g'ri format.")
+        await message.reply(texts.ERROR_URL)

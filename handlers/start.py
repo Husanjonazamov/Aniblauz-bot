@@ -7,7 +7,7 @@ from loader import dp, bot
 from utils import texts, buttons
 
 
-ADMIN = 6415392394
+ADMIN = 5765144405
 
 
 @dp.message_handler(commands=['start'], state='*')

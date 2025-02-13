@@ -1,15 +1,24 @@
 START_ADMIN = \
 """
-Videoni yuboring
+📁 <b>Faylni yuboring (video, hujjat yoki foto)</b>
 """
 
 START = \
 """
-Assalomu alaykum
+👋 <b>Assalomu alaykum</b>
 """
-
 
 NOT_ADMIN = \
 """
-Sizda bu amalni bajarish uchun ruxsat yo'q.
+🚫 <b>Sizda bu amalni bajarish uchun ruxsat yo'q.</b>
 """
+
+NOT_URL = \
+"""
+❌ <b>Havola xato</b>
+"""
+
+EXPIRED_URL = \
+"""
+⏳ <b>Bu havola eskirgan</b>
+""" 
