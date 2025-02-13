@@ -3,12 +3,11 @@ from aiogram.dispatcher import FSMContext
 
 # Kode import
 from loader import dp, bot
-from utils.env import BOT_URL, ADMIN, BOT_ADMIN
+from utils.env import BOT_URL, ADMIN
 from utils import texts
 import json
 
 
-ADMINS = [ADMIN, BOT_ADMIN]
 
 VIDEO_LINKS_FILE = 'video_links.json'
 
@@ -27,7 +26,7 @@ video_links = load_links()
 
 @dp.message_handler(content_types=['video', 'document', 'photo'], state='*')
 async def start_handler(message: Message, state: FSMContext):
-    if message.from_user.id in ADMINS:
+    if message.from_user.id == ADMIN:
         file_id = None
         content_type = None
         
