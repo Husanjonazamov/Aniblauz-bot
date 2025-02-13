@@ -7,10 +7,10 @@ from loader import dp, bot
 from utils import texts, buttons
 
 
-ADMIN = 5765144405
+ADMIN = 6415392394
 
 
-@dp.message_handler(commands=['start'])
+@dp.message_handler(commands=['start'], state='*')
 async def start_handler(message: Message, state: FSMContext):
     
     user_id = message.from_user.id
