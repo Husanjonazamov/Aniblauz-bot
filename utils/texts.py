@@ -22,3 +22,18 @@ EXPIRED_URL = \
 """
 ⏳ <b>Bu havola eskirgan</b>
 """ 
+
+
+NOT_ANIME = \
+"""
+Kechirasiz, bu anime mavjud emas.
+"""
+
+
+ERROR_ANIME = \
+"""
+<b>Anime videosini yuborishda xatolik yuz berdi.</b>
+"""
+
+
+

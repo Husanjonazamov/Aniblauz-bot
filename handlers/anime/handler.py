@@ -3,10 +3,12 @@ from aiogram.types import Message
 from aiogram.dispatcher import FSMContext
 
 # kode import
-from loader import dp
-from utils import texts, buttons
-from services.services import getAnime
+import requests
 
+from loader import dp
+from services.services import getAnime
+from utils.env import BOT_TOKEN
+from utils import texts
 
 
 
@@ -21,14 +23,21 @@ async def send_anime(message: Message, state: FSMContext):
     
     if anime:
         anime_caption = f"<b>{anime['name']}</b>\n{anime['description']}"
-        try:
-            await message.answer_video(
-                video=anime['anime_id'],
-                caption=anime_caption,
-            )
-        except Exception as e:
-            print(f"Hujjatni yuborishda xatolik: {e}")
-            await message.reply("Anime faylini yuborishda xatolik yuz berdi.")
+        chat_id = message.chat.id
+        video_id = anime['anime_id']
+        
+        url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendVideo"
+        data = {
+            'chat_id': chat_id,
+            'video': video_id,
+            'caption': anime_caption,
+            'parse_mode': 'HTML',
+            'protect_content': True
+        }
+        
+        response = requests.post(url, data=data)
+        
+        if response.status_code != 200:
+            await message.reply(texts.ERROR_ANIME)
     else:
-        await message.reply("Kechirasiz, bu anime mavjud emas.")
-
+        await message.reply(texts.NOT_ANIME)
