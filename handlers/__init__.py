@@ -1,3 +1,3 @@
-from . import video_link
-from . import generate
+from . import anime
+from . import file_id
 from . import start
