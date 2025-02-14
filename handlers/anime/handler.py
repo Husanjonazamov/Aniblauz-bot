@@ -22,7 +22,7 @@ async def send_anime(message: Message, state: FSMContext):
     anime = next((anime for anime in anime_list if str(anime['id']) == anime_id), None)
     
     if anime:
-        anime_caption = f"<b>{anime['name']}</b>\n{anime['description']}"
+        anime_caption = f"<b>{anime['name']}</b>\n{anime.get('description', '')}"
         chat_id = message.chat.id
         video_id = anime['anime_id']
         
