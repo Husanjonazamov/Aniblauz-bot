@@ -20,11 +20,10 @@ async def process_callback(callback_query: CallbackQuery, state: FSMContext):
             description = episode['description']
             episode_id = episode['episode_id']
             
-            caption_text = f"{name}\n{description}"
             
             await callback_query.message.answer_video(
                 video=episode_id,
-                caption=caption_text
+                caption=texts.anime_text(name=name, description=description)
             )        
     else:
-            await callback_query.message.answer("Epizodlar topilmadi.")
+        await callback_query.message.answer(texts.NOT_EPISODE)

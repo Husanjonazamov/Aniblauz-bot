@@ -43,3 +43,19 @@ ALL_ANIME_DOWNLOAD = \
 """
 Hammasini yuklab olasizmi
 """
+
+
+
+NOT_EPISODE = \
+"""
+Epizodlar topilmadi.
+"""
+
+
+def anime_text(**kwargs):
+    anime = ''
+    
+    anime += f"<b>{kwargs['name']}</b>\n"
+    anime += f"<b>{kwargs['description']}</b>"
+    
+    return anime    

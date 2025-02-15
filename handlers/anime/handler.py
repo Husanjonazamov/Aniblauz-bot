@@ -21,7 +21,11 @@ async def send_anime(message: Message, state: FSMContext):
     anime = next((anime for anime in anime_list if str(anime['id']) == anime_id), None)
     
     if anime:
-        anime_caption = f"<b>{anime['name']}</b>\n{anime.get('description', '')}"
+        
+        name = anime['name']
+        description = anime.get('description', '')
+        
+        anime_caption = texts.anime_text(name=name, description=description)
         chat_id = message.chat.id
         video_id = anime['anime_id']
         
@@ -42,7 +46,6 @@ async def send_anime(message: Message, state: FSMContext):
                 texts.ALL_ANIME_DOWNLOAD, 
                 reply_markup=buttons.create_download_button(anime_id)
             )
-            print(anime_id)
         else:
             await message.reply(texts.ERROR_ANIME)
     else:
