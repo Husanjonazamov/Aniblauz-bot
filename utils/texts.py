@@ -37,3 +37,9 @@ ERROR_ANIME = \
 
 
 
+
+
+ALL_ANIME_DOWNLOAD = \
+"""
+Hammasini yuklab olasizmi
+"""
