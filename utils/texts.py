@@ -1,56 +1,47 @@
 START_ADMIN = \
 """
-📁 <b>Faylni yuboring (video, hujjat yoki foto)</b>
+📁 <b>Faylni yuklash uchun, iltimos, video, hujjat yoki surat yuboring.</b>
 """
 
 START = \
 """
-👋 <b>Assalomu alaykum</b>
+👋 <b>Assalomu alaykum! Anime olamiga xush kelibsiz!</b>
 """
 
 NOT_ADMIN = \
 """
-🚫 <b>Sizda bu amalni bajarish uchun ruxsat yo'q.</b>
+🚫 <b>Kechirasiz, sizda bu amalni bajarish uchun ruxsat yo'q.</b>
 """
 
 NOT_URL = \
 """
-❌ <b>Havola xato</b>
+❌ <b>Xato! Havola to'g'ri emas.</b>
 """
 
 EXPIRED_URL = \
 """
-⏳ <b>Bu havola eskirgan</b>
+⏳ <b>Kechirasiz, bu havola eskirgan.</b>
 """ 
-
 
 NOT_ANIME = \
 """
-Kechirasiz, bu anime mavjud emas.
+😔 <b>Kechirasiz, bu anime mavjud emas.</b>
 """
-
 
 ERROR_ANIME = \
 """
-<b>Anime videosini yuborishda xatolik yuz berdi.</b>
+⚠️ <b>Anime videosini yuborishda xatolik yuz berdi. Iltimos, keyinroq yana urinib ko'ring.</b>
 """
-
-
-
-
 
 ALL_ANIME_DOWNLOAD = \
 """
-Hammasini yuklab olasizmi
+📥 <b>Hammasini yuklab olmoqchimisiz?</b>
 """
-
-
 
 NOT_EPISODE = \
 """
-Epizodlar topilmadi.
+🔍 <b>Epizodlar topilmadi. Yana bir bor tekshiring.</b>
 """
-
 
 def anime_text(**kwargs):
     anime = ''
