@@ -37,6 +37,17 @@ def getAnime():
         print(response.status_code)
         return []
     
+def getEpisodesList():
+    url = f"{BASE_URL}/episodes/"
+    response = requests.get(url)
+    
+    if response.status_code == 200:
+        data = response.json()
+        return data['data']['results']
+    else:
+        print(response.status_code)
+        return []
+    
     
     
 def getEpisode(anime_id):
