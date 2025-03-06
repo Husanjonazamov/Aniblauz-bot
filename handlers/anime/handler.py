@@ -5,10 +5,9 @@ from aiogram.dispatcher import FSMContext
 import requests
 
 from loader import dp
-from services.services import getAnime, getEpisodesList
+from services.services import getAnime, getEpisodesList, getEpisode
 from utils.env import BOT_TOKEN
 from utils import texts, buttons
-
 
 
 
@@ -19,6 +18,7 @@ async def send_anime_or_episode(message: Message, state: FSMContext):
 
     anime_list = getAnime()
     episode_list = getEpisodesList()
+    episode = getEpisode(anime_id)
 
 
     anime = next((anime for anime in anime_list if str(anime.get('id')) == anime_id), None)
@@ -44,10 +44,13 @@ async def send_anime_or_episode(message: Message, state: FSMContext):
         response = requests.post(url, data=data)
 
         if response.status_code == 200:
-            await message.answer(
-                texts.ALL_ANIME_DOWNLOAD,
-                reply_markup=buttons.create_download_button(anime_id)
-            )
+            if episode:
+                await message.answer(
+                    texts.ALL_ANIME_DOWNLOAD,
+                    reply_markup=buttons.create_download_button(anime_id)
+                )
+            else:
+                return
         else:
             await message.reply(texts.ERROR_ANIME)
 

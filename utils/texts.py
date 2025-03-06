@@ -50,3 +50,9 @@ def anime_text(**kwargs):
     anime += f"<b>{kwargs['description']}</b>"
     
     return anime    
+
+
+NOT_ANIME_OR_EPISODE = \
+"""
+😔 <b>Kechirasiz, bu anime mavjud emas.</b>
+"""
