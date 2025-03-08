@@ -38,14 +38,13 @@ def getAnime():
         return []
     
 def getEpisodesList():
-    url = f"http://158.255.6.103:8086/api/v1/episodes/"
+    url = f"{BASE_URL}/episodes/"
     response = requests.get(url)
-    
+    print(response)
     if response.status_code == 200:
         data = response.json()
         return data['data']['results']
     else:
-        print(response.status_code)
         return []
     
     
