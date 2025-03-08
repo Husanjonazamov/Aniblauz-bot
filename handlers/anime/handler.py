@@ -15,9 +15,10 @@ from utils import texts, buttons
 async def send_anime_or_episode(message: Message, state: FSMContext):
     unique_id = message.get_args()
     anime_id = unique_id.replace("anime_", "")
+    episode_id = unique_id.replace("episode_", "")
 
     anime_list = getAnime()
-    episode_list = getEpisodesList()
+    episode_list = getEpisodesList()    
     episode = getEpisode(anime_id)
 
     anime = next((anime for anime in anime_list if str(anime.get('id')) == anime_id), None)
@@ -54,21 +55,21 @@ async def send_anime_or_episode(message: Message, state: FSMContext):
             await message.reply(texts.ERROR_ANIME)
     else:
         episode_anime = None
-        for ep in episode_list:
-            if str(ep.get('id')) == anime_id:
-                episode_anime = ep
+        for episode_get in episode_list:
+            if str(episode_get['id']) == episode_id:
+                episode_anime = episode_get
                 break 
         print(episode_anime)
         if episode_anime:   
             episode_name = episode_anime['name']
             episode_description = episode_anime.get('description', '')
             episode_caption = f"{episode_name}\n{episode_description}"
-            chat_id = message.chat.id
+            user_chat_id = message.chat.id
             video_id = episode_anime['episode_id']
 
             url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendVideo"
             data = {
-                'chat_id': chat_id,
+                'chat_id': user_chat_id,
                 'video': video_id,
                 'caption': episode_caption,
                 'parse_mode': 'HTML',
