@@ -20,7 +20,6 @@ async def send_anime_or_episode(message: Message, state: FSMContext):
     episode_list = getEpisodesList()
     episode = getEpisode(anime_id)
 
-
     anime = next((anime for anime in anime_list if str(anime.get('id')) == anime_id), None)
 
     if anime:
@@ -48,20 +47,19 @@ async def send_anime_or_episode(message: Message, state: FSMContext):
                 await message.answer(
                     texts.ALL_ANIME_DOWNLOAD,
                     reply_markup=buttons.create_download_button(anime_id)
-                )
+                ) 
             else:
                 return
         else:
             await message.reply(texts.ERROR_ANIME)
     else:
         episode_anime = next((ep for ep in episode_list if str(ep.get('id')) == anime_id), None)
-
-        try:
-            episode_name = episode['name']
-            episode_description = episode.get('description', '')
+        if episode_anime:   
+            episode_name = episode_anime['name']
+            episode_description = episode_anime.get('description', '')
             episode_caption = f"{episode_name}\n{episode_description}"
             chat_id = message.chat.id
-            video_id = episode['episode_id']
+            video_id = episode_anime['episode_id']
 
             url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendVideo"
             data = {
@@ -72,5 +70,5 @@ async def send_anime_or_episode(message: Message, state: FSMContext):
                 'protect_content': True
             }
             response = requests.post(url, data=data)
-        except Exception as e:
-            print(e)
+        else:
+            await message.reply(texts.NOT_ANIME_OR_EPISODE)
