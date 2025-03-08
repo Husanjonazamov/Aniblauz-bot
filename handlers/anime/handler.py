@@ -57,23 +57,20 @@ async def send_anime_or_episode(message: Message, state: FSMContext):
         episode_anime = next((ep for ep in episode_list if str(ep.get('id')) == anime_id), None)
 
         try:
-            if episode_anime:
-                episode_name = episode['name']
-                episode_description = episode.get('description', '')
-                episode_caption = f"{episode_name}\n{episode_description}"
-                chat_id = message.chat.id
-                video_id = episode['episode_id']
+            episode_name = episode['name']
+            episode_description = episode.get('description', '')
+            episode_caption = f"{episode_name}\n{episode_description}"
+            chat_id = message.chat.id
+            video_id = episode['episode_id']
 
-                url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendVideo"
-                data = {
-                    'chat_id': chat_id,
-                    'video': video_id,
-                    'caption': episode_caption,
-                    'parse_mode': 'HTML',
-                    'protect_content': True
-                }
-                response = requests.post(url, data=data)
-            else:
-                await message.reply(texts.NOT_ANIME_OR_EPISODE)
+            url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendVideo"
+            data = {
+                'chat_id': chat_id,
+                'video': video_id,
+                'caption': episode_caption,
+                'parse_mode': 'HTML',
+                'protect_content': True
+            }
+            response = requests.post(url, data=data)
         except Exception as e:
             print(e)
