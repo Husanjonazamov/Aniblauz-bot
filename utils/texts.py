@@ -54,5 +54,5 @@ def anime_text(**kwargs):
 
 NOT_ANIME_OR_EPISODE = \
 """
-😔 <b>Kechirasiz, bu anime mavjud emas.</b>
+<b>Yuklashda Xatolik yuz berdi</b>
 """
