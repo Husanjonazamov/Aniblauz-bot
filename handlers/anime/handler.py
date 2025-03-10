@@ -8,7 +8,7 @@ from loader import dp
 from services.services import getAnime, getEpisodesList, getEpisode
 from utils.env import BOT_TOKEN
 from utils import texts, buttons
-
+import logging
 
 
 @dp.message_handler(lambda message: message.text.startswith('/start '), state="*")
@@ -59,7 +59,6 @@ async def send_anime_or_episode(message: Message, state: FSMContext):
             if str(episode_get['id']) == episode_id:
                 episode_anime = episode_get
                 break 
-        print(episode_anime)
         if episode_anime:   
             episode_name = episode_anime['name']
             episode_description = episode_anime.get('description', '')
@@ -77,4 +76,11 @@ async def send_anime_or_episode(message: Message, state: FSMContext):
             }
             response = requests.post(url, data=data)
         else:
+            logging.error(":erorr:")
+            logging.error(episode_list)
+            logging.error(":---")
+            logging.error(episode_anime)
+            
+            logging.error(f"====={episode_get['id']}") 
+             
             await message.reply(texts.NOT_ANIME_OR_EPISODE)
