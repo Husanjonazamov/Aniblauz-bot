@@ -59,6 +59,11 @@ async def send_anime_or_episode(message: Message, state: FSMContext):
             if str(episode_get['id']) == episode_id:
                 episode_anime = episode_get
                 break 
+            logging.error("====================================")
+            logging.error(episode_id)
+            logging.error(episode_get['id'])
+            logging.error("====================================")
+            
         if episode_anime:   
             episode_name = episode_anime['name']
             episode_description = episode_anime.get('description', '')
