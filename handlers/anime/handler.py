@@ -5,7 +5,7 @@ from aiogram.dispatcher import FSMContext
 import requests
 
 from loader import dp
-from services.services import getAnime, getEpisodesList, getEpisode
+from services.services import getAnime, getEpisodesList, getEpisode, getEpisodeFromID
 from utils.env import BOT_TOKEN
 from utils import texts, buttons
 import logging
@@ -54,22 +54,13 @@ async def send_anime_or_episode(message: Message, state: FSMContext):
         else:
             await message.reply(texts.ERROR_ANIME)
     else:
-        episode_anime = None
-        for episode_get in episode_list:
-            if str(episode_get['id']) == episode_id:
-                episode_anime = episode_get
-                break 
-            logging.error("====================================")
-            logging.error(episode_id)
-            logging.error(episode_get['id'])
-            logging.error("====================================")
-            
+        episode_anime = getEpisodeFromID(episode_id) 
         if episode_anime:   
-            episode_name = episode_anime['name']
-            episode_description = episode_anime.get('description', '')
+            episode_name = episode_anime[0]['name']
+            episode_description = episode_anime[0].get('description', '') if episode_anime else ''
             episode_caption = f"{episode_name}\n{episode_description}"
             user_chat_id = message.chat.id
-            video_id = episode_anime['episode_id']
+            video_id = episode_anime[0]['episode_id']
 
             url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendVideo"
             data = {
@@ -81,11 +72,4 @@ async def send_anime_or_episode(message: Message, state: FSMContext):
             }
             response = requests.post(url, data=data)
         else:
-            logging.error(":erorr:")
-            logging.error(episode_list)
-            logging.error(":---")
-            logging.error(episode_anime)
-            
-            logging.error(f"====={episode_get['id']}") 
-             
             await message.reply(texts.NOT_ANIME_OR_EPISODE)

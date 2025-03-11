@@ -46,7 +46,14 @@ def getEpisodesList():
         return data['data']['results']
     else:
         return []
-    
+
+def getEpisodeFromID(episode_id):
+    url = f"{BASE_URL}/episodes/episode/{episode_id}/"
+    response = requests.get(url)
+    if response.status_code == 200:
+        data = response.json()
+        return data['data']
+    raise Exception("Episode not foun!")
     
     
 def getEpisode(anime_id):
